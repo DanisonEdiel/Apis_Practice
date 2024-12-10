@@ -1,23 +1,49 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useWebSocket } from "@/composables/useWebSocket"; // Importamos el composable de WebSocket
 
-const dialog = ref(false);
+const dialog = ref(false); // Controla la apertura/cierre del diálogo
+const { sendMessage } = useWebSocket(); // WebSocket hooks
+const newMessage = ref(""); // Para enviar nuevos mensajes
+
+// Conectar al servidor WebSocket al montar el componente
+onMounted(() => {
+  // connect();
+});
 </script>
 
 <template>
   <div class="text-center mt-4 mt-sm-0">
-    <v-btn color="primary" class="w-100" flat>
-      Open Simple Dialog
-      <v-dialog v-model="dialog" activator="parent"  class="dialog-mw">
+    <v-btn color="primary" class="w-100" flat @click="dialog = true">
+      Open WebSocket Dialog
+      <v-dialog v-model="dialog" activator="parent" class="dialog-mw">
         <v-card>
+          <v-card-title>WebSocket Messages</v-card-title>
           <v-card-text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <ul>
+              <li v-for="(message, index) in messages" :key="index">
+                {{ message }}
+              </li>
+            </ul>
+            <input
+              v-model="newMessage"
+              type="text"
+              placeholder="Type your message"
+              class="mt-4 w-100"
+            />
+            <v-btn
+              color="primary"
+              class="mt-2 w-100"
+              flat
+              @click="sendMessage(newMessage); newMessage = ''"
+            >
+              Send Message
+            </v-btn>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary"  @click="dialog = false" variant="tonal"
-              >Close Dialog</v-btn
-            >
+            <v-btn color="primary" @click="dialog = false" variant="tonal">
+              Close Dialog
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>

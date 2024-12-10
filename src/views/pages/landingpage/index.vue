@@ -68,7 +68,7 @@ onMounted(() => {
                             </UiChildCard>
                         </v-col>
                         <v-col cols="12" sm="12" lg="4" class="d-flex align-items-stretch">
-                            <UiChildCard title="Scrollable">
+                            <UiChildCard title="MQTT">
                                 <DialogsMqtt />
                             </UiChildCard>
                         </v-col>
