@@ -2,25 +2,50 @@ import { ref } from "vue";
 
 import { Client } from '@stomp/stompjs';
 
-const client = new Client({
-  brokerURL: 'ws://localhost:8080/ws',
-  onConnect: () => {
-    client.subscribe('/topic/test01', message =>
-      console.log(`Received: ${message.body}`)
-    );
-    client.publish({ destination: '/topic/test01', body: 'First Message' });
-  },
+const stompClient  = new Client({
+   brokerURL: 'ws://localhost:8080/gs-guide-websocket'
 });
 
-client.activate();
+// stompClient.onConnect = (frame) => {
+   
+//     console.log('Connected: ' + frame);
+//     stompClient.subscribe('/topic/greetings', (greeting) => {
+        
+//     });
+// };
+stompClient.onConnect = () => {
+    console.log('Connected');
+    stompClient.subscribe('/topic/greetings', (message) => {
+        console.log('Message received: ', JSON.parse(message.body));
+    });
+};
+
+
+stompClient.onWebSocketError = (error) => {
+    console.error('Error with websocket', error);
+};
+
+stompClient.onStompError = (frame) => {
+    console.error('Broker reported error: ' + frame.headers['message']);
+    console.error('Additional details: ' + frame.body);
+};
 
 const sendMessage = (msg: string) => {
+    stompClient.activate();
     // stompClient.send("/app/sendMessage", {}, msg);
 };
 
+let isConnected = false;
+function connect() {
+    if (!isConnected) {
+        stompClient.activate();
+        isConnected = true;
+    }
+}
+
 export function useWebSocket() {
     return {
-        
+        connect,        
         sendMessage,
     };
 }
