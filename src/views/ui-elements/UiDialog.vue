@@ -4,15 +4,6 @@ import { ref } from 'vue';
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import UiParentCard from '@/components/shared/UiParentCard.vue';
 import UiChildCard from '@/components/shared/UiChildCard.vue';
-
-import DialogsActivator from '@/components/ui-components/dialogs/DialogsActivator.vue';
-import DialogsModel from '@/components/ui-components/dialogs/DialogsModel.vue';
-import DialogsFullscreen from '@/components/ui-components/dialogs/DialogsFullscreen.vue';
-import DialogsTransitions from '@/components/ui-components/dialogs/DialogsTransitions.vue';
-import DialogsPersistent from '@/components/ui-components/dialogs/DialogsPersistent.vue';
-import DialogsScrollable from '@/components/ui-components/dialogs/DialogsScrollable.vue';
-import DialogsForm from '@/components/ui-components/dialogs/DialogsForm.vue';
-import DialogsNested from '@/components/ui-components/dialogs/DialogsNested.vue';
 // template breadcrumb
 const page = ref({ title: 'Dialog' });
 const breadcrumbs = ref([
