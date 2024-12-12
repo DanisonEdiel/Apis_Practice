@@ -21,13 +21,14 @@ const dialog = ref(false);
               Es como si recibieras un mensaje de texto cuando algo sucede, en lugar de tener que verificar manualmente
               si algo ha cambiado.
             </v-card-text>
-            <v-btn color="primary" @click="simulateWebhook">Simulate Webhook</v-btn>
             <ul>
               <li v-for="(event, index) in events" :key="index">{{ event }}</li>
             </ul>
           </v-card-item>
           <v-card-actions>
             <v-btn color="primary" @click="dialog = false" variant="tonal">Cerrar</v-btn>
+            <v-spacer/>
+            <v-btn color="primary" variant="outlined" @click="simulateWebhook">Simulate Webhook</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
